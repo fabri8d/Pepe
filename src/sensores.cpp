@@ -28,7 +28,11 @@ DatosSensores leerSensores(){
     datos.distFrente = medirDistancia(TRIG_FRENTE, ECHO_FRENTE);
     datos.distDer    = medirDistancia(TRIG_DER, ECHO_DER);
     datos.distIzq   = medirDistancia(TRIG_IZQ, ECHO_IZQ);
-    datos.tcrtIzq   = analogRead(TCRT_IZQ);
-    datos.tcrtDer   = analogRead(TCRT_DER);
+    int infrarojoIzq = analogRead(TCRT_IZQ);
+    int infrarojoDer = analogRead(TCRT_DER);
+    if (infrarojoDer > 500){datos.tcrtDer = 1;}
+    else{datos.tcrtDer = 0;}
+    if (infrarojoIzq > 500){datos.tcrtIzq = 1;}
+    else{datos.tcrtIzq = 0;}
     return datos;
 }
