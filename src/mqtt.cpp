@@ -32,14 +32,14 @@ void onMessage(char* topic, byte* payload, unsigned int length) {
 void iniciarMQTT(QueueHandle_t colaMotores) {
     _colaMotores = colaMotores;
 
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    WiFi.begin(WIFI_SSID_STR, WIFI_PASSWORD_STR);
     while (WiFi.status() != WL_CONNECTED) {
         Serial.print(".");
         delay(500);
     }
     Serial.println("WiFi conectado");
 
-    client.setServer(MQTT_SERVER_IP, MQTT_SERVER_PORT);
+    client.setServer(MQTT_SERVER_IP_STR, MQTT_SERVER_PORT_VAL);
     client.setCallback(onMessage);
 
     while (!client.connected()) {

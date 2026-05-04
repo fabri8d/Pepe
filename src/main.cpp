@@ -38,7 +38,7 @@ void tareaAire(void *pvParameters) {
     while (true) {
         DatosAire aire = leerAire();
         xQueueSend(colaAire, &aire, portMAX_DELAY);
-        vTaskDelay(pdMS_TO_TICKS(5000));
+        vTaskDelay(pdMS_TO_TICKS(30000));
     }
 }
 
@@ -67,7 +67,7 @@ void setup() {
     colaMotores  = xQueueCreate(1, sizeof(AccionMotor));
 
     iniciarMQTT(colaMotores);
-
+    sleep(20);
     // Core 0 — hardware físico
     xTaskCreatePinnedToCore(tareaSensores, "Sensores", 4096, NULL, 2, NULL, 0);
     xTaskCreatePinnedToCore(tareaMotores,  "Motores",  2048, NULL, 3, NULL, 0);

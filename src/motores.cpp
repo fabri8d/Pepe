@@ -17,8 +17,8 @@ void iniciarMotores() {
 void avanzar() {
     digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
     digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
-    ledcWrite(PWM_CANAL_A, VELOCIDAD);
-    ledcWrite(PWM_CANAL_B, VELOCIDAD);
+    ledcWrite(PWM_CANAL_A, VELOCIDAD_IZQUIERDA);
+    ledcWrite(PWM_CANAL_B, VELOCIDAD_DERECHA);
 }
 
 void frenar() {
@@ -31,13 +31,13 @@ void frenar() {
 void girarIzquierda() {
     digitalWrite(IN1, LOW);  digitalWrite(IN2, HIGH);
     digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
-    ledcWrite(PWM_CANAL_A, VELOCIDAD);
-    ledcWrite(PWM_CANAL_B, VELOCIDAD);
+    ledcWrite(PWM_CANAL_A, VELOCIDAD_IZQUIERDA);
+    ledcWrite(PWM_CANAL_B, VELOCIDAD_DERECHA);
 }
 
 void girarDerecha() {
     digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
     digitalWrite(IN3, LOW);  digitalWrite(IN4, HIGH);
-    ledcWrite(PWM_CANAL_A, VELOCIDAD);
-    ledcWrite(PWM_CANAL_B, VELOCIDAD);
+    ledcWrite(PWM_CANAL_A, VELOCIDAD_IZQUIERDA);
+    ledcWrite(PWM_CANAL_B, VELOCIDAD_DERECHA);
 }
