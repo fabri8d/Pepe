@@ -7,17 +7,17 @@
 #include <freertos/task.h>
 #include <freertos/queue.h>
 
-QueueHandle_t colaSensores;
+// QueueHandle_t colaSensores;
 QueueHandle_t colaAire;
 QueueHandle_t colaMotores;
 
-void tareaSensores(void *pvParameters) {
-    while (true) {
-        DatosSensores datos = leerSensores();
-        xQueueSend(colaSensores, &datos, portMAX_DELAY);
-        vTaskDelay(pdMS_TO_TICKS(200));
-    }
-}
+// void tareaSensores(void *pvParameters) {
+//     while (true) {
+//         DatosSensores datos = leerSensores();
+//         xQueueSend(colaSensores, &datos, portMAX_DELAY);
+//         vTaskDelay(pdMS_TO_TICKS(200));
+//     }
+// }
 
 void tareaMotores(void *pvParameters) {
     AccionMotor accion;
@@ -44,12 +44,12 @@ void tareaAire(void *pvParameters) {
 
 void tareaMQTT(void *pvParameters) {
     while (true) {
-        DatosSensores datos;
+        // DatosSensores datos;
         DatosAire aire;
         client.loop();
-        if (xQueueReceive(colaSensores, &datos, 0)) {
-            publicarSensores(datos);
-        }
+        // if (xQueueReceive(colaSensores, &datos, 0)) {
+        //     publicarSensores(datos);
+        // }
         if (xQueueReceive(colaAire, &aire, 0)) {
             publicarAire(aire);
         }
@@ -62,14 +62,14 @@ void setup() {
     iniciarAire();
     iniciarMotores();
 
-    colaSensores = xQueueCreate(5, sizeof(DatosSensores));
+    // colaSensores = xQueueCreate(5, sizeof(DatosSensores));
     colaAire     = xQueueCreate(2, sizeof(DatosAire));
     colaMotores  = xQueueCreate(1, sizeof(AccionMotor));
 
     iniciarMQTT(colaMotores);
     sleep(20);
     // Core 0 — hardware físico
-    xTaskCreatePinnedToCore(tareaSensores, "Sensores", 4096, NULL, 2, NULL, 0);
+    // xTaskCreatePinnedToCore(tareaSensores, "Sensores", 4096, NULL, 2, NULL, 0);
     xTaskCreatePinnedToCore(tareaMotores,  "Motores",  2048, NULL, 3, NULL, 0);
 
     // Core 1 — comunicación
